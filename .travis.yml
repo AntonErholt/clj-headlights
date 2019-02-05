@@ -1,0 +1,30 @@
+sudo: false
+language: clojure
+branches:
+  only:
+    - master
+jdk:
+  - oraclejdk8
+jobs:
+  include:
+    - stage: test
+      name: test code
+      script: lein test
+    - name: lint code
+      script: lein eastwood
+    - stage: deploy
+      name: deploy to codox
+      deploy:
+        provider: pages
+        skip-cleanup: true
+        github-token: $github_travis_token  # Set in the settings page of your repository, as a secure variable
+        keep-history: true
+        on:
+          branch: master
+    - name: deloy to clojars
+      script: ./scripts/deploy_clojars.sh
+      
+cache:
+  timeout: 259200 # 3 days
+  directories:
+    - $HOME/.m2/repository
