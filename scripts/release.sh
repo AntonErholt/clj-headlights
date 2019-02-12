@@ -43,10 +43,10 @@ fi
 
 set -x
 
-git stash
-git checkout master
-git pull
-git reset HEAD --hard
+#git stash
+#git checkout master
+#git pull
+#git reset HEAD --hard
 git ls-files|xargs sed -i '' "s/${CURRENT_VERSION}/${VERSION}/g" || true # sed returns non-zero exit code if some binary files are in the list (e.g. travis-github-key.enc)
 lein test
 lein with-profile release uberjar
@@ -56,9 +56,9 @@ git tag "v${VERSION}"
 git push --tags
 sed -E -i '' "s/(defproject .+) \"master-SNAPSHOT\"/\1 \"${VERSION}\"/" project.clj
 lein with-profile release deploy clojars
-git checkout -- project.clj
-git checkout -
-git stash pop
+#git checkout -- project.clj
+#git checkout -
+#git stash pop
 
 set +x
 
