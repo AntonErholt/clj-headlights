@@ -145,7 +145,7 @@
     (.output context (KV/of k v))))
 
 (s/defn df-mapcat-kv
-  "Same as `df-map-kv` except `f` returns a sequence of lenght-2-sequences to be flattened
+  "Same as `df-map-kv` except `f` returns a sequence of length-2-sequences to be flattened
   and converted into KV objects"
   [pcoll :- pcollections/PCollectionType
    name :- s/Str
